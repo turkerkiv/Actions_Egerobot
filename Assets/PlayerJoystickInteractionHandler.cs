@@ -1,39 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
+using UnityEngine.InputSystem;
 
 public class PlayerJoystickInteractionHandler : MonoBehaviour
 {
-    [SerializeField] float _interactionRadius = 5.0f;
+    [SerializeField] InputAction _interact;
+    [SerializeField] Transform _handIKTarget;
+    [SerializeField] Rig _handIKRig;
 
     JoystickAnimationHandler _joystickAnimationHandler;
 
-    void Start()
-    {
+    float _handIKWeight;
 
+    void OnEnable()
+    {
+        _interact.Enable();
     }
 
     void Update()
     {
-        var colliders = Physics.OverlapSphere(transform.position, _interactionRadius);
-
-        foreach (var collider in colliders)
+        if (_joystickAnimationHandler != null && _interact.triggered)
         {
-            if (collider.TryGetComponent(out _joystickAnimationHandler))
-            {
-                break;
-            }
+            _joystickAnimationHandler.PlayUpDownAnimation(_handIKTarget, this);
+
+            _handIKWeight = 1f;
+
+            CancelInvoke(nameof(ResetWeight));
+            Invoke(nameof(ResetWeight), 1.0f);
         }
 
-        if (_joystickAnimationHandler != null && Input.GetKeyDown(KeyCode.E))
+        _handIKRig.weight = Mathf.Lerp(_handIKRig.weight, _handIKWeight, Time.deltaTime * 5.0f);
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.TryGetComponent(out JoystickAnimationHandler joystickAnimationHandler))
         {
-            _joystickAnimationHandler.PlayUpDownAnimation();
+            _joystickAnimationHandler = joystickAnimationHandler;
         }
     }
 
-    void OnDrawGizmosSelected()
+    void OnTriggerExit(Collider other)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _interactionRadius);
+        if (_joystickAnimationHandler != null && other.TryGetComponent(out JoystickAnimationHandler joystickAnimationHandler))
+        {
+            _joystickAnimationHandler = null;
+        }
+    }
+
+    void OnDisable()
+    {
+        _interact.Disable();
+    }
+
+    public void ResetWeight()
+    {
+        _handIKWeight = 0;
     }
 }

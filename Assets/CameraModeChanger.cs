@@ -6,10 +6,16 @@ using UnityEngine.InputSystem;
 
 public class CameraModeChanger : MonoBehaviour
 {
+    [SerializeField] InputAction _changeCameraMode;
     [SerializeField] GameObject _fpCamera;
     [SerializeField] GameObject _fpPlayerObject;
     [SerializeField] GameObject _tpCamera;
     [SerializeField] GameObject _tpPlayerObject;
+
+    void OnEnable()
+    {
+        _changeCameraMode.Enable();
+    }
 
     void Start()
     {
@@ -19,7 +25,7 @@ public class CameraModeChanger : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (_changeCameraMode.triggered)
         {
             _fpCamera.SetActive(!_fpCamera.activeInHierarchy);
             _tpCamera.SetActive(!_tpCamera.activeInHierarchy);
@@ -35,5 +41,10 @@ public class CameraModeChanger : MonoBehaviour
             _fpPlayerObject.transform.position = _tpPlayerObject.transform.position;
             _fpPlayerObject.transform.rotation = _tpPlayerObject.transform.rotation;
         }
+    }
+
+    void OnDisable()
+    {
+        _changeCameraMode.Disable();
     }
 }
