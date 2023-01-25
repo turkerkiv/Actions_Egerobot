@@ -6,6 +6,7 @@ public class JoystickAnimationHandler : MonoBehaviour
 {
     [SerializeField] Transform _stickTip;
     [SerializeField] Vector3 _grabOffset;
+    [SerializeField] ObjectMovement _objectToMove;
 
     Animator _animator;
 
@@ -41,7 +42,7 @@ public class JoystickAnimationHandler : MonoBehaviour
             _isUp = !_isUp;
             _animator.SetTrigger(_isUp ? _upToDownHash : _downToUpHash);
 
-            Debug.Log("Triggered");
+            _objectToMove.Move(_isUp);
 
             _player.CancelInvoke(nameof(_player.ResetWeight));
         }
