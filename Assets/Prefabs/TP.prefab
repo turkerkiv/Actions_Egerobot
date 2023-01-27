@@ -2244,7 +2244,6 @@ GameObject:
   - component: {fileID: 5967578592687653940}
   - component: {fileID: 3269154301055940191}
   - component: {fileID: 7649830394203440866}
-  - component: {fileID: 7649830394203440867}
   - component: {fileID: 4687045031968035980}
   - component: {fileID: 2395978292630270229}
   - component: {fileID: 4644937417208546257}
@@ -2375,37 +2374,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7649830394203440867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5967578592687653951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 536b21372b985e34d86593054e6f8f41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactKey:
-    m_Name: Interact Key
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 4f656566-ed16-4e4b-ae99-45e1c2322ba4
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 66f03668-7045-4439-b4fc-b0461284af2e
-      m_Path: <Keyboard>/e
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Interact Key
-      m_Flags: 0
-    m_Flags: 0
-  _handIKTarget: {fileID: 7508598624588282783}
-  _handIKRig: {fileID: 8415998040922573892}
 --- !u!114 &4687045031968035980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2690,6 +2658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 760204098835208081}
   - component: {fileID: 5199330758398582396}
+  - component: {fileID: 1568222387}
   m_Layer: 8
   m_Name: InteractionRange
   m_TagString: Untagged
@@ -2725,6 +2694,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.26, y: 0.62, z: 0.32}
   m_Center: {x: 0.12, y: 1.43, z: -0.17}
+--- !u!114 &1568222387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7566137842131313660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536b21372b985e34d86593054e6f8f41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactKey:
+    m_Name: Interact Key
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4f656566-ed16-4e4b-ae99-45e1c2322ba4
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 66f03668-7045-4439-b4fc-b0461284af2e
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Interact Key
+      m_Flags: 0
+    m_Flags: 0
+  _handIKTarget: {fileID: 7508598624588282783}
+  _handIKRig: {fileID: 8415998040922573892}
 --- !u!1 &7674999656140376020
 GameObject:
   m_ObjectHideFlags: 0
