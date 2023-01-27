@@ -5,21 +5,22 @@ using UnityEngine;
 public class LimitHandleMovement : MonoBehaviour
 {
     [SerializeField] Transform _firstPoint;
-    [SerializeField] Transform _player;
 
     float _maxDistance;
-    Vector3 _direction;
+
+    public Transform PlayerRightHand { get; set; }
 
     void Start()
     {
         _maxDistance = Vector3.Distance(_firstPoint.position, transform.position);
+        Debug.Log("max distance " + _maxDistance);
     }
 
-    void Update()
+    public void GetClampedPosition(Transform player)
     {
-        // _direction = _player.position - _firstPoint.position;
-        // _direction = Vector3.ClampMagnitude(_direction, _maxDistance - 0.5f);
-
-        // transform.position = _firstPoint.position + _direction;
+        Vector3 dirMag = PlayerRightHand.position - _firstPoint.position;
+        Vector3 armBodyOffset = player.position - PlayerRightHand.position;
+        dirMag = Vector3.ClampMagnitude(dirMag, _maxDistance);
+        player.position = _firstPoint.position + dirMag + armBodyOffset;
     }
 }

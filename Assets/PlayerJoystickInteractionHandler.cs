@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerJoystickInteractionHandler : MonoBehaviour
 {
+    [SerializeField] Transform _player;
     [SerializeField] InputAction _interactKey;
     [SerializeField] Transform _handIKTarget;
     [SerializeField] Rig _handIKRig;
@@ -26,6 +27,7 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         if (_canCarry && _interactable != null)
         {
             _interactable.transform.position = _handIKTarget.position;
+            _interactable.LimitHandleMovement.GetClampedPosition(_player);
         }
 
         // if ((_joystickAnimationHandler != null && _interactKey.triggered))
@@ -78,6 +80,8 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         if (_interactable != null && other.TryGetComponent(out Interactable interactable))
         {
             _interactable = interactable;
+            _interactable.OnInteract -= Carry;
+            _interactable = null;
         }
     }
 
