@@ -274,9 +274,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -3581,6 +3579,7 @@ GameObject:
   - component: {fileID: 2122487349}
   - component: {fileID: 2122487350}
   - component: {fileID: 2122487351}
+  - component: {fileID: 2122487352}
   m_Layer: 3
   m_Name: Handle
   m_TagString: Untagged
@@ -3596,7 +3595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122487344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.73, y: 0.075, z: 0.5477}
+  m_LocalPosition: {x: 0.6862, y: 0.075, z: 0.5471}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3740,8 +3739,20 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.54}
+--- !u!114 &2122487352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122487344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72504ca32ae1e4948b49a4b686ccbb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &65356570712175698
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3824,16 +3835,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148324372874}
-  m_LocalRotation: {x: 0.49712753, y: -0.49020097, z: -0.50268066, w: 0.5097836}
-  m_LocalPosition: {x: 3.77, y: 6.47, z: 6.98}
-  m_LocalScale: {x: 8.71, y: 8.71, z: 8.71}
+  m_LocalRotation: {x: 0.7068348, y: -0.70681226, z: -0.014427641, w: 0.024348611}
+  m_LocalPosition: {x: -3.17, y: 3.802, z: 12.42}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 200865000}
   - {fileID: 2122487345}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0.804, y: -88.56, z: -89.98}
+  m_LocalEulerAnglesHint: {x: 0.804, y: -176.857, z: -89.98}
 --- !u!4 &543450652635346623
 Transform:
   m_ObjectHideFlags: 0

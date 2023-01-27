@@ -59,13 +59,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216328667170791567}
-  m_LocalRotation: {x: 0.49800614, y: 0.53871924, z: -0.56133294, w: -0.38298416}
-  m_LocalPosition: {x: 0.422, y: 0.345, z: 0.121}
-  m_LocalScale: {x: 0.099999934, y: 0.09999995, z: 0.09999996}
+  m_LocalRotation: {x: 0.2809164, y: -0.5138367, z: -0.71126336, w: 0.3887959}
+  m_LocalPosition: {x: 2.789821, y: -2.828187, z: 1.1596155}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6398447453929393598}
-  m_RootOrder: 1
+  m_Father: {fileID: 7508598624588282783}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &235132292107735779
 GameObject:
@@ -479,10 +479,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042524668873928164}
   m_LocalRotation: {x: 0.97281396, y: -0.18386531, z: -0.08341766, w: 0.11343728}
-  m_LocalPosition: {x: 0.0936, y: 0.2157, z: 0.3371}
+  m_LocalPosition: {x: 0.126, y: -0.018, z: 0.28}
   m_LocalScale: {x: 0.099999934, y: 0.09999995, z: 0.09999996}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2739115176202588961}
   m_Father: {fileID: 6398447453929393598}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 10.955, y: 191.994, z: 202.56}
@@ -1401,7 +1402,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7508598624588282783}
-  - {fileID: 2739115176202588961}
   m_Father: {fileID: 1566136643210835272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2387,21 +2387,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536b21372b985e34d86593054e6f8f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interact:
-    m_Name: Interact
-    m_Type: 1
-    m_ExpectedControlType: Button
-    m_Id: 6362a4b8-eab7-4a8a-bea6-fdd9e8077571
+  _interactKey:
+    m_Name: Interact Key
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4f656566-ed16-4e4b-ae99-45e1c2322ba4
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: e32e54fd-3175-4a14-8b37-11cb7862ebe9
+      m_Id: 66f03668-7045-4439-b4fc-b0461284af2e
       m_Path: <Keyboard>/e
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Interact
+      m_Action: Interact Key
       m_Flags: 0
     m_Flags: 0
   _handIKTarget: {fileID: 7508598624588282783}
@@ -2723,8 +2723,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.29, y: 0.62, z: 0.38}
-  m_Center: {x: 0, y: 1.43, z: -0.23}
+  m_Size: {x: 0.26, y: 0.62, z: 0.32}
+  m_Center: {x: 0.12, y: 1.43, z: -0.17}
 --- !u!1 &7674999656140376020
 GameObject:
   m_ObjectHideFlags: 0
