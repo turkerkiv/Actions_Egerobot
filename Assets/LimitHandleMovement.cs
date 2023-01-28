@@ -8,12 +8,21 @@ public class LimitHandleMovement : MonoBehaviour
 
     float _maxDistance;
 
+    // ConfigurableJoint _joint;
+
     public Transform PlayerRightHand { get; set; }
+
+    void Awake()
+    {
+        // _joint = GetComponent<ConfigurableJoint>();
+    }
 
     void Start()
     {
         _maxDistance = Vector3.Distance(_firstPoint.position, transform.position);
-        Debug.Log("max distance " + _maxDistance);
+
+        // _joint.connectedBody = _ropeGenerator.LastSegment.GetComponent<Rigidbody>();
+        // transform.position = _ropeGenerator.LastSegment.position;
     }
 
     public void GetClampedPosition(Transform player)
