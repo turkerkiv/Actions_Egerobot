@@ -20,6 +20,7 @@ public class LimitHandleMovement : MonoBehaviour
     void Start()
     {
         _maxDistance = Vector3.Distance(_firstPoint.position, transform.position);
+        transform.position = _firstPoint.position;
 
         // _joint.connectedBody = _ropeGenerator.LastSegment.GetComponent<Rigidbody>();
         // transform.position = _ropeGenerator.LastSegment.position;

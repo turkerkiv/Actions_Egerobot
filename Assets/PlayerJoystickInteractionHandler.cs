@@ -28,6 +28,7 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         {
             _interactable.transform.position = _handIKTarget.position;
             _interactable.LimitHandleMovement.GetClampedPosition(_player);
+            _interactable.Rigidbody.isKinematic = true;
         }
 
         // if ((_joystickAnimationHandler != null && _interactKey.triggered))
@@ -53,6 +54,7 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
             ResetWeight();
             _canCarry = false;
             _interactable = null;
+            _interactable.Rigidbody.isKinematic = false;
         }
 
         _handIKRig.weight = Mathf.Lerp(_handIKRig.weight, _handIKWeight, Time.deltaTime * 5.0f);
@@ -77,10 +79,11 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         // {
         //     _joystickAnimationHandler = null;
         // }
-        if (_interactable != null && other.TryGetComponent(out Interactable interactable))
+        if (!_canCarry && _interactable != null && other.TryGetComponent(out Interactable interactable))
         {
             _interactable = interactable;
             _interactable.OnInteract -= Carry;
+
             _interactable = null;
         }
     }
