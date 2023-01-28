@@ -24,12 +24,11 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
 
     void Update()
     {
-        if (_canCarry && _interactable != null)
-        {
-            _interactable.transform.position = _handIKTarget.position;
-            _interactable.LimitHandleMovement.GetClampedPosition(_player);
-            _interactable.Rigidbody.isKinematic = true;
-        }
+        HandleRopeCarry();
+
+        HandleRopeInteraction();
+
+        HandleRopeDrop();
 
         // if ((_joystickAnimationHandler != null && _interactKey.triggered))
         // {
@@ -40,22 +39,6 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         //     CancelInvoke(nameof(ResetWeight));
         //     Invoke(nameof(ResetWeight), 1.0f);
         // }
-
-        if (_interactable != null && _interactKey.triggered && !_canCarry)
-        {
-            _handIKTarget.position = _interactable.transform.position;
-            _handIKWeight = 1f;
-
-            CancelInvoke(nameof(ResetWeight));
-            Invoke(nameof(ResetWeight), 1.0f);
-        }
-        if (_interactable != null && _interactKey.triggered && _canCarry)
-        {
-            ResetWeight();
-            _canCarry = false;
-            _interactable = null;
-            _interactable.Rigidbody.isKinematic = false;
-        }
 
         _handIKRig.weight = Mathf.Lerp(_handIKRig.weight, _handIKWeight, Time.deltaTime * 5.0f);
     }
@@ -93,6 +76,11 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         _interactKey.Disable();
     }
 
+    public void ResetWeight()
+    {
+        _handIKWeight = 0;
+    }
+
     void Carry(Interactable interactable)
     {
         _interactable = interactable;
@@ -101,8 +89,38 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         CancelInvoke(nameof(ResetWeight));
     }
 
-    public void ResetWeight()
+    void HandleRopeInteraction()
     {
-        _handIKWeight = 0;
+        if (_interactable != null && _interactKey.triggered && !_canCarry)
+        {
+            _handIKTarget.position = _interactable.transform.position;
+            _handIKWeight = 1f;
+
+            CancelInvoke(nameof(ResetWeight));
+            Invoke(nameof(ResetWeight), 1.0f);
+        }
     }
+
+    void HandleRopeDrop()
+    {
+        if (_interactable != null && _interactKey.triggered && _canCarry)
+        {
+            ResetWeight();
+            _canCarry = false;
+            _interactable.Rigidbody.isKinematic = false;
+            _interactable = null;
+        }
+    }
+
+    void HandleRopeCarry()
+    {
+        if (_canCarry && _interactable != null)
+        {
+            _interactable.transform.position = _handIKTarget.position;
+            _interactable.LimitHandleMovement.GetClampedPosition(_player);
+            _interactable.Rigidbody.isKinematic = true;
+        }
+    }
+
+
 }

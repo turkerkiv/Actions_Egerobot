@@ -3029,7 +3029,7 @@ GameObject:
   - component: {fileID: 8616685849147077927}
   - component: {fileID: 8616685849147077926}
   - component: {fileID: 5242139339374389100}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: PlayerFP
   m_TagString: Player
   m_Icon: {fileID: 0}
