@@ -35,25 +35,18 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
 
         HandleRopeDrop();
 
-        // if ((_joystickAnimationHandler != null && _interactKey.triggered))
-        // {
-        //     _joystickAnimationHandler.PlayUpDownAnimation(_handIKTarget, this);
-
-        //     _handIKWeight = 1f;
-
-        //     CancelInvoke(nameof(ResetWeight));
-        //     Invoke(nameof(ResetWeight), 1.0f);
-        // }
+        HandleLeverInteraction();
 
         _handIKRig.weight = Mathf.Lerp(_handIKRig.weight, _handIKWeight, Time.deltaTime * 5.0f);
     }
 
     void OnTriggerStay(Collider other)
     {
-        // if (other.TryGetComponent(out JoystickAnimationHandler joystickAnimationHandler))
-        // {
-        //     _joystickAnimationHandler = joystickAnimationHandler;
-        // }
+        if (_joystickAnimationHandler == null && other.TryGetComponent(out JoystickAnimationHandler joystickAnimationHandler))
+        {
+            _joystickAnimationHandler = joystickAnimationHandler;
+        }
+
         if (_rope == null && other.TryGetComponent(out Interactable rope))
         {
             _rope = rope;
@@ -69,10 +62,10 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        // if (_joystickAnimationHandler != null && other.TryGetComponent(out JoystickAnimationHandler joystickAnimationHandler))
-        // {
-        //     _joystickAnimationHandler = null;
-        // }
+        if (_joystickAnimationHandler != null && other.TryGetComponent(out JoystickAnimationHandler joystickAnimationHandler))
+        {
+            _joystickAnimationHandler = null;
+        }
 
         if (!_isCarrying && _rope != null && other.TryGetComponent(out Interactable interactable))
         {
@@ -172,5 +165,19 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
             _rope.Rigidbody.isKinematic = true;
         }
     }
+
+    void HandleLeverInteraction()
+    {
+        if ((_joystickAnimationHandler != null && _interactKey.triggered))
+        {
+            _joystickAnimationHandler.PlayUpDownAnimation(_handIKTarget, this, _isPlugged);
+
+            _handIKWeight = 1f;
+
+            CancelInvoke(nameof(ResetWeight));
+            Invoke(nameof(ResetWeight), 1.0f);
+        }
+    }
+
 
 }

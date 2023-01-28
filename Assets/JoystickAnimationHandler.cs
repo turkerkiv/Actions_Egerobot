@@ -14,6 +14,7 @@ public class JoystickAnimationHandler : MonoBehaviour
     int _downToUpHash;
     bool _isUp;
     bool _isAnimationPlaying;
+    bool _isPlugged;
 
     Transform _handTarget;
     PlayerJoystickInteractionHandler _player;
@@ -41,15 +42,16 @@ public class JoystickAnimationHandler : MonoBehaviour
             _isAnimationPlaying = true;
             _isUp = !_isUp;
             _animator.SetTrigger(_isUp ? _upToDownHash : _downToUpHash);
-
-            _objectToMove.Move(_isUp);
-
             _player.CancelInvoke(nameof(_player.ResetWeight));
+
+            if (_isPlugged)
+                _objectToMove.Move(_isUp);
         }
     }
 
-    public void PlayUpDownAnimation(Transform handTarget, PlayerJoystickInteractionHandler player)
+    public void PlayUpDownAnimation(Transform handTarget, PlayerJoystickInteractionHandler player, bool isPlugged)
     {
+        _isPlugged = isPlugged;
         _player = player;
         _handTarget = handTarget;
         _handTarget.position = _stickTip.position + _grabOffset;
