@@ -100,6 +100,7 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
 
     void InteractSocket(SocketBehaviour socket)
     {
+        if (!_isPlugging) return;
         Debug.Log("InteractSocket");
 
         _socket = socket;
