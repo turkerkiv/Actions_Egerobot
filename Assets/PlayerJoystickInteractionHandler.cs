@@ -12,10 +12,13 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
     [SerializeField] Rig _handIKRig;
 
     JoystickAnimationHandler _joystickAnimationHandler;
-    Interactable _interactable;
+    Interactable _rope;
+    SocketBehaviour _socket;
 
     float _handIKWeight;
-    bool _canCarry;
+    bool _isCarrying;
+    bool _isPlugging;
+    bool _isPlugged;
 
     void OnEnable()
     {
@@ -24,6 +27,8 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
 
     void Update()
     {
+        HandleSocketInteraction();
+
         HandleRopeCarry();
 
         HandleRopeInteraction();
@@ -49,10 +54,16 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         // {
         //     _joystickAnimationHandler = joystickAnimationHandler;
         // }
-        if (_interactable == null && other.TryGetComponent(out Interactable interactable))
+        if (_rope == null && other.TryGetComponent(out Interactable rope))
         {
-            _interactable = interactable;
-            _interactable.OnInteract += Carry;
+            _rope = rope;
+            _rope.OnInteract += CarryRope;
+        }
+
+        if (_rope != null && _socket == null && other.TryGetComponent(out SocketBehaviour socket))
+        {
+            _socket = socket;
+            socket.OnInteract += InteractSocket;
         }
     }
 
@@ -62,12 +73,17 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         // {
         //     _joystickAnimationHandler = null;
         // }
-        if (!_canCarry && _interactable != null && other.TryGetComponent(out Interactable interactable))
-        {
-            _interactable = interactable;
-            _interactable.OnInteract -= Carry;
 
-            _interactable = null;
+        if (!_isCarrying && _rope != null && other.TryGetComponent(out Interactable interactable))
+        {
+            _rope.OnInteract -= CarryRope;
+            _rope = null;
+        }
+
+        if (_socket != null && other.TryGetComponent(out SocketBehaviour socket))
+        {
+            _socket.OnInteract -= InteractSocket;
+            _socket = null;
         }
     }
 
@@ -81,19 +97,38 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         _handIKWeight = 0;
     }
 
-    void Carry(Interactable interactable)
+    void CarryRope(Interactable interactable)
     {
-        _interactable = interactable;
-        _interactable.OnInteract -= Carry;
-        _canCarry = true;
+        _rope = interactable;
+        _rope.OnInteract -= CarryRope;
+        _isCarrying = true;
+        CancelInvoke(nameof(ResetWeight));
+    }
+
+    void InteractSocket(SocketBehaviour socket)
+    {
+        Debug.Log("InteractSocket");
+
+        _socket = socket;
+        _socket.OnInteract -= InteractSocket;
+        _isPlugging = false;
+        _isPlugged = true;
+
+        _isCarrying = false;
+        _rope.Rigidbody.isKinematic = true;
+        _rope.transform.position = _socket.transform.position;
+        _rope = null;
+
+        _handIKWeight = 0;
+
         CancelInvoke(nameof(ResetWeight));
     }
 
     void HandleRopeInteraction()
     {
-        if (_interactable != null && _interactKey.triggered && !_canCarry)
+        if (_rope != null && _interactKey.triggered && !_isCarrying)
         {
-            _handIKTarget.position = _interactable.transform.position;
+            _handIKTarget.position = _rope.transform.position;
             _handIKWeight = 1f;
 
             CancelInvoke(nameof(ResetWeight));
@@ -103,24 +138,39 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
 
     void HandleRopeDrop()
     {
-        if (_interactable != null && _interactKey.triggered && _canCarry)
+        if (!_isPlugging && _rope != null && _interactKey.triggered && _isCarrying)
         {
             ResetWeight();
-            _canCarry = false;
-            _interactable.Rigidbody.isKinematic = false;
-            _interactable = null;
+            _isCarrying = false;
+            _rope.Rigidbody.isKinematic = false;
+            _rope = null;
+        }
+    }
+
+    void HandleSocketInteraction()
+    {
+        if (!_isPlugging && _isCarrying && _rope != null && _socket != null && _interactKey.triggered)
+        {
+            Debug.Log("Plug in");
+
+            _handIKTarget.position = _socket.transform.position;
+            _handIKWeight = 1f;
+
+            _isPlugging = true;
+
+            CancelInvoke(nameof(ResetWeight));
+            Invoke(nameof(ResetWeight), 1.0f);
         }
     }
 
     void HandleRopeCarry()
     {
-        if (_canCarry && _interactable != null)
+        if (_isCarrying && _rope != null)
         {
-            _interactable.transform.position = _handIKTarget.position;
-            _interactable.LimitHandleMovement.GetClampedPosition(_player);
-            _interactable.Rigidbody.isKinematic = true;
+            _rope.transform.position = _handIKTarget.position;
+            _rope.LimitHandleMovement.GetClampedPosition(_player);
+            _rope.Rigidbody.isKinematic = true;
         }
     }
-
 
 }
