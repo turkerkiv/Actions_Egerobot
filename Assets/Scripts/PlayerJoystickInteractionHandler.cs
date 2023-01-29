@@ -45,17 +45,20 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         if (_joystickAnimationHandler == null && other.TryGetComponent(out JoystickAnimationHandler joystickAnimationHandler))
         {
             _joystickAnimationHandler = joystickAnimationHandler;
+            joystickAnimationHandler.Outline.enabled = true;
         }
 
         if (_rope == null && other.TryGetComponent(out Interactable rope))
         {
             _rope = rope;
+            rope.Outline.enabled = true;
             _rope.OnInteract += CarryRope;
         }
 
         if (_rope != null && _socket == null && other.TryGetComponent(out SocketBehaviour socket))
         {
             _socket = socket;
+            socket.Outline.enabled = true;
             socket.OnInteract += InteractSocket;
         }
     }
@@ -64,18 +67,21 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
     {
         if (_joystickAnimationHandler != null && other.TryGetComponent(out JoystickAnimationHandler joystickAnimationHandler))
         {
+            joystickAnimationHandler.Outline.enabled = false;
             _joystickAnimationHandler = null;
         }
 
         if (!_isCarrying && _rope != null && other.TryGetComponent(out Interactable interactable))
         {
             _rope.OnInteract -= CarryRope;
+            _rope.Outline.enabled = false;
             _rope = null;
         }
 
         if (_socket != null && other.TryGetComponent(out SocketBehaviour socket))
         {
             _socket.OnInteract -= InteractSocket;
+            _socket.Outline.enabled = false;
             _socket = null;
         }
     }

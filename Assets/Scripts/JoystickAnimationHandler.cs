@@ -7,6 +7,7 @@ public class JoystickAnimationHandler : MonoBehaviour
     [SerializeField] Transform _stickTip;
     [SerializeField] Vector3 _grabOffset;
     [SerializeField] ObjectMovement _objectToMove;
+    [SerializeField] Outline _outline;
 
     Animator _animator;
 
@@ -18,6 +19,8 @@ public class JoystickAnimationHandler : MonoBehaviour
 
     Transform _handTarget;
     PlayerJoystickInteractionHandler _player;
+
+    public Outline Outline => _outline;
 
     void Awake()
     {

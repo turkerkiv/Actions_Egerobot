@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
+    [SerializeField] Outline _outline;
+
     public delegate void InteractEvent(Interactable interactable);
     public event InteractEvent OnInteract;
 
@@ -9,6 +11,7 @@ public class Interactable : MonoBehaviour
 
     public LimitHandleMovement LimitHandleMovement { get; private set; }
     public Rigidbody Rigidbody => _rigidbody;
+    public Outline Outline => _outline;
 
     void Awake()
     {
