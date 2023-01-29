@@ -108,7 +108,9 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
 
     void InteractSocket(SocketBehaviour socket)
     {
+        Debug.Log("InteractSocketentry");
         if (!_isPlugging) return;
+        Debug.Log("InteractSocketafter");
 
         _socket = socket;
         _socket.Outline.enabled = false;

@@ -12,6 +12,13 @@ public class CameraModeChanger : MonoBehaviour
     [SerializeField] GameObject _tpCamera;
     [SerializeField] GameObject _tpPlayerObject;
 
+    Outline[] _outlines;
+
+    void Awake()
+    {
+        _outlines = FindObjectsOfType<Outline>();
+    }
+
     void OnEnable()
     {
         _changeCameraMode.Enable();
@@ -29,6 +36,8 @@ public class CameraModeChanger : MonoBehaviour
         {
             _fpCamera.SetActive(!_fpCamera.activeInHierarchy);
             _tpCamera.SetActive(!_tpCamera.activeInHierarchy);
+
+            SetWidthsOfOutlines();
         }
 
         if (_fpCamera.activeInHierarchy)
@@ -47,4 +56,23 @@ public class CameraModeChanger : MonoBehaviour
     {
         _changeCameraMode.Disable();
     }
+
+    void SetWidthsOfOutlines()
+    {
+        if (_tpCamera.activeInHierarchy && _outlines[0].OutlineWidth > 3)
+        {
+            foreach (Outline outline in _outlines)
+            {
+                outline.OutlineWidth = 3;
+            }
+        }
+        else if (_fpCamera.activeInHierarchy && _outlines[0].OutlineWidth < 10)
+        {
+            foreach (Outline outline in _outlines)
+            {
+                outline.OutlineWidth = 10;
+            }
+        }
+    }
+
 }
