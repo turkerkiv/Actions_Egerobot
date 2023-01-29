@@ -59,7 +59,8 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         {
             _socket = socket;
             socket.Outline.enabled = true;
-            socket.OnInteract += InteractSocket;
+            _socket.OnInteract += InteractSocket;
+            Debug.Log("OnTriggerStay");
         }
     }
 
@@ -81,6 +82,7 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
         if (_socket != null && other.TryGetComponent(out SocketBehaviour socket))
         {
             _socket.OnInteract -= InteractSocket;
+            Debug.Log("OnTriggerExit");
             _socket.Outline.enabled = false;
             _socket = null;
         }
@@ -107,9 +109,9 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
     void InteractSocket(SocketBehaviour socket)
     {
         if (!_isPlugging) return;
-        Debug.Log("InteractSocket");
 
         _socket = socket;
+        _socket.Outline.enabled = false;
         _socket.OnInteract -= InteractSocket;
         _isPlugging = false;
         _isPlugged = true;
