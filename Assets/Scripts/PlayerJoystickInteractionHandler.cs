@@ -166,7 +166,6 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
             Invoke(nameof(ResetWeight), 1.0f);
         }
     }
-
     void HandleRopeCarry()
     {
         if (_isCarrying && _rope != null)

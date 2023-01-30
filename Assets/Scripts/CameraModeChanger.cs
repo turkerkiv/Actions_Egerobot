@@ -8,9 +8,9 @@ public class CameraModeChanger : MonoBehaviour
 {
     [SerializeField] InputAction _changeCameraMode;
     [SerializeField] GameObject _fpCamera;
-    [SerializeField] GameObject _fpPlayerObject;
+    [SerializeField] FirstPersonController _fpController;
     [SerializeField] GameObject _tpCamera;
-    [SerializeField] GameObject _tpPlayerObject;
+    [SerializeField] ThirdPersonController _tpController;
 
     Outline[] _outlines;
 
@@ -27,7 +27,10 @@ public class CameraModeChanger : MonoBehaviour
     void Start()
     {
         _fpCamera.SetActive(true);
-        _tpCamera.SetActive(!_fpCamera.activeInHierarchy);
+        _fpController.enabled = true;
+
+        _tpCamera.SetActive(false);
+        _tpController.enabled = false;
     }
 
     void Update()
@@ -37,19 +40,22 @@ public class CameraModeChanger : MonoBehaviour
             _fpCamera.SetActive(!_fpCamera.activeInHierarchy);
             _tpCamera.SetActive(!_tpCamera.activeInHierarchy);
 
+            _fpController.enabled = !_fpController.enabled;
+            _tpController.enabled = !_tpController.enabled;
+
             SetWidthsOfOutlines();
         }
 
-        if (_fpCamera.activeInHierarchy)
-        {
-            _tpPlayerObject.transform.position = _fpPlayerObject.transform.position;
-            _tpPlayerObject.transform.rotation = _fpPlayerObject.transform.rotation;
-        }
-        else
-        {
-            _fpPlayerObject.transform.position = _tpPlayerObject.transform.position;
-            _fpPlayerObject.transform.rotation = _tpPlayerObject.transform.rotation;
-        }
+        // if (_fpCamera.activeInHierarchy)
+        // {
+        //     _tpController.transform.position = _fpController.transform.position;
+        //     _tpController.transform.rotation = _fpController.transform.rotation;
+        // }
+        // else
+        // {
+        //     _fpController.transform.position = _tpController.transform.position;
+        //     _fpController.transform.rotation = _tpController.transform.rotation;
+        // }
     }
 
     void OnDisable()
