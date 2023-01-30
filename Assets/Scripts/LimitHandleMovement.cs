@@ -26,7 +26,7 @@ public class LimitHandleMovement : MonoBehaviour
         // transform.position = _ropeGenerator.LastSegment.position;
     }
 
-    public void GetClampedPosition(Transform player)
+    public void ClampPlayerMovement(Transform player)
     {
         Vector3 dirMag = PlayerRightHand.position - _firstPoint.position;
         Vector3 armBodyOffset = player.position - PlayerRightHand.position;

@@ -12,6 +12,7 @@ public class Interactable : MonoBehaviour
     public LimitHandleMovement LimitHandleMovement { get; private set; }
     public Rigidbody Rigidbody => _rigidbody;
     public Outline Outline => _outline;
+    public Transform Tip => _outline.transform;
 
     void Awake()
     {

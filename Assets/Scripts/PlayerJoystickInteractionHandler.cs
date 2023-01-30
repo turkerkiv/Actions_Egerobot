@@ -120,6 +120,8 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
 
         _isCarrying = false;
         _rope.Rigidbody.isKinematic = true;
+        _rope.Outline.enabled = false;
+        _rope.transform.position = new Vector3(-4.13000011f, 0.270000011f, -0.699999988f);
         _rope.transform.position = _socket.transform.position;
         _rope = null;
 
@@ -170,9 +172,12 @@ public class PlayerJoystickInteractionHandler : MonoBehaviour
     {
         if (_isCarrying && _rope != null)
         {
-            _rope.transform.position = _handIKTarget.position;
-            _rope.LimitHandleMovement.GetClampedPosition(_player);
+            _rope.transform.position = _rope.LimitHandleMovement.PlayerRightHand.position + _rope.Tip.forward * 0.05f;
+            _rope.LimitHandleMovement.ClampPlayerMovement(_player);
             _rope.Rigidbody.isKinematic = true;
+
+            _rope.Tip.rotation = Quaternion.LookRotation(_player.forward, Vector3.right);
+            _rope.Tip.position = _rope.LimitHandleMovement.PlayerRightHand.position + _rope.Tip.forward * 0.15f;
         }
     }
 
