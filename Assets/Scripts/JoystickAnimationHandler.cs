@@ -13,7 +13,7 @@ public class JoystickAnimationHandler : MonoBehaviour
 
     int _upToDownHash;
     int _downToUpHash;
-    bool _isUp;
+    bool _isUp = true;
     bool _isAnimationPlaying;
     bool _isPlugged;
 
@@ -43,8 +43,8 @@ public class JoystickAnimationHandler : MonoBehaviour
         if (other.CompareTag("PlayerRightHand") && !_isAnimationPlaying && _player != null)
         {
             _isAnimationPlaying = true;
-            _isUp = !_isUp;
             _animator.SetTrigger(_isUp ? _upToDownHash : _downToUpHash);
+            _isUp = !_isUp;
             _player.CancelInvoke(nameof(_player.ResetWeight));
 
             if (_isPlugged)
